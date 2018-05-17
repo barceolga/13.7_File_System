@@ -11,11 +11,16 @@ fs.readdir(testFolder, function (err, files)  {
    });
     var files = files;
     var data = files.toString();
-  fs.writeFile('directiory_content.txt', data, function(err){
-    if (err) throw err; // if error appears, return expection/console.error
-    console.log('Saved!'.blue);
-    fs.readFile('directiory_content.txt', 'utf-8', function(err, data) {
-        console.log(data.bgMagenta.yellow);
-    });
-  });
+    var myData = data.replace(/,/g,  ", ");
+  fs.writeFile('directory_content.txt', myData, setData);
 });
+
+function setData(err) {
+  if (err) throw err; // if error appears, return expection/console.error
+  console.log('Saved!'.blue);
+  fs.readFile('directory_content.txt', 'utf-8', readData);
+}
+
+function readData(err, myData ) {
+    console.log(myData.split(", "));
+}
